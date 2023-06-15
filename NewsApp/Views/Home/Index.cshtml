@@ -1,0 +1,75 @@
+﻿@{
+  ViewData["Titel"] = "Start Page";
+}
+
+@model ViewModels
+
+@if (Model.TopArticle != null)
+{
+  <h3 class="fw-bolder bg-dark text-center text-white">Top News</h3>
+
+  <a asp-action="Details" asp-route-id="@Model.TopArticle.Id " class="nav-link a">
+    <div class="card">
+      <div class="card-header fw-bold">
+        @Model.TopArticle.Headline
+      </div>
+      <img src="~/Image/@Model.TopArticle.ImageFile" alt="Alternate Text" class="img-fluid img" />
+      <div class="card-body">
+        @if (Model.TopArticle.Content.Length > 100)
+        {
+          @Model.TopArticle.Content.Substring(0, 100) @:...
+        }
+        else
+        {
+          @Model.TopArticle.Content
+        }
+      </div>
+      <div class="card-footer">
+        @Model.TopArticle.Author, Created :@Model.TopArticle.Created.ToShortDateString()
+      </div>
+    </div>
+  </a>
+  <h3 class="bg-dark text-center text-white margin">
+    Weitere News
+  </h3>
+  <div class="row">
+    @foreach (var item in Model.Articles)
+    {
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <a asp-action="Details" class="nav-link a" asp-route-id="@item.Id">
+          <div class="card margin">
+            <div class="card-header fw-bold bg-light">
+              @item.Headline
+            </div>
+            <img src="~/Image/@item.ImageFile" alt="OOOOMMMMMGGGGGGGG" class="img-fluid img" />
+            <div class="card-body">
+              @if (item.Content.Length > 70)
+              {
+                @item.Content.Substring(0, 70) @:...
+              }
+              else
+              {
+                @item.Content
+              }
+            </div>
+            <div class="card-footer">
+              @item.Author.        Created @item.Created.ToShortDateString()
+            </div>
+          </div>
+        </a>
+      </div>
+    }
+  </div>
+}
+<div>
+  <a asp-action="NewArticle" class="btn a">
+    New Article
+  </a>
+  <a asp-action="Delete" class="btn a">
+    Delete
+  </a>
+</div>
+<form asp-action="Details">
+  <label for="123" class="btn ">Artikel</label>
+  <input name="id" id="123" />
+</form>

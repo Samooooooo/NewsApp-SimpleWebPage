@@ -1,0 +1,26 @@
+﻿@{
+  ViewData["Title"] = "Details";
+}
+
+@model Article
+
+@if (Model != null)
+{
+  <div class="card">
+    <div class="card-header text-center fw-bold">
+      @Model.Headline
+    </div>
+    <div class="card-body text-center">
+      @Model.Content
+    </div>
+    <div class="card-footer text-center">
+      @Model.Author.        Created: @Model.Created.ToShortDateString()
+    </div>
+  </div>
+}
+else
+{
+  <p class="text-danger">Artikel wurde nicht gefunden</p>
+}
+
+<a asp-action="Index" class="btn a">Home</a>
